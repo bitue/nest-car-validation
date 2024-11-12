@@ -23,7 +23,6 @@ import { AuthGuard } from 'src/guards/auth.guards';
 
 @Controller('auth')
 @UseInterceptors(new SerializeInterceptor(UserDto))
-@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private userService: UsersService,
@@ -37,6 +36,7 @@ export class UsersController {
 
   @Get('/whoAmI')
   @UseGuards(AuthGuard)
+  @UseInterceptors(CurrentUserInterceptor)
   whoAmI(@CurrentUser() user: any) {
     return user;
   }
